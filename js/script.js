@@ -23,7 +23,7 @@
 	d3.select("#graphic").remove();
 	dvc = {};
 	
-	dvc.time = "yr14";
+	
 	first = true;
 	selected=false;
 	
@@ -36,6 +36,10 @@
 	} else {
 		dvc.colour = eval("colorbrewer." + config.ons.varcolour);
 	}
+	
+	
+	
+	dvc.time = "yr" + config.ons.chartLabels.length;
 	
 	dvc.curr = config.ons.varload;
 	a = 0;
@@ -271,8 +275,7 @@
 			for(i=0; i < timeLabels.length; i++){
 				numticks.push(i);	
 			}
-			
-			console.log(numticks);
+
 			
 			$("#slide").slider({
 				value:currVal,//Set to whatever the last value was
