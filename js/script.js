@@ -43,6 +43,8 @@
 	
 	dvc.curr = config.ons.varload;
 	a = 0;
+	
+	dvc.loadvar = config.ons.datanames[a];
 	dvc.unittext = config.ons.varunit[a];
 	dvc.label = config.ons.varlabel[a];
 	dvc.prefix = config.ons.varprefix[a];
@@ -206,7 +208,7 @@
 		d3.select("#areanm").text(areaById[currclass]);
 		
 	
-	format=d3.format(",.1f")
+	format=d3.format(",.0f")
 	
 	var subst = dvc.time.substr(2,3);
 	
@@ -618,15 +620,15 @@
 		
 		
 		x = d3.scale.linear()
-		    .domain([newbreaks[0], breaks[4]]) /*range for data*/
-		    .range([0,keywidth-150]); /*range for pixels*/
+		    .domain([newbreaks[0], breaks[5]]) /*range for data*/
+		    .range([0,keywidth-30]); /*range for pixels*/
 
 		var xAxis = d3.svg.axis()
 		    .scale(x)
 		    .orient("bottom")
     		.tickSize(15)
 		    .tickValues(color.domain())
-			.tickFormat(d3.format(".1f"));
+			.tickFormat(d3.format(".0f"));
 
 		
 		var yAxis = d3.svg.axis()
@@ -634,13 +636,13 @@
 		    .orient("left")
     		.tickSize(15)
 		    .tickValues(color.domain())
-			.tickFormat(d3.format(".1f"));
+			.tickFormat(d3.format(".0f"));
 
 		
 		//horizontal key		
 			
 		var g2 = svgkey.append("g").attr("id","horiz")
-			.attr("transform", "translate(25,30)");
+			.attr("transform", "translate(15,30)");
 			
 		
 		keyhor = d3.select("#horiz");
@@ -723,7 +725,7 @@
 				.data(data.ons.varlabel)
 				.enter()
 				.append("li")
-				.attr("id", function(d,i){return data.ons.varname[i]})
+				.attr("id", function(d,i){return data.ons.datanames[i]})
 				.append("a")
 				.attr("href","#")
 				.attr("data-nm", function(d,i){return data.ons.varname[i]})
@@ -746,8 +748,9 @@
 					
 				});
 				
+			console.log(dvc.curr);
 		
-			d3.select("#" + dvc.curr).attr("class","active");
+			d3.select("#" + dvc.loadvar).attr("class","active");
 			
 			 var highest = null;
 
@@ -770,7 +773,7 @@
 					.data(data.ons.varlabel)
 					.enter()
 					.append("li")
-					.attr("id", function(d,i){return "drop" + data.ons.varname[i]})
+					.attr("id", function(d,i){return "drop" + data.ons.datanames[i]})
 					.append("a")
 					.attr("href","#")
 					.attr("data-nm", function(d,i){return data.ons.varname[i]})
